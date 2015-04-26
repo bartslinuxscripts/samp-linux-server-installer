@@ -3,3 +3,6 @@ v0.1.0
 
 v0.1.1
  - Bug fixes.
+
+v0.1.2
+ - Added random RCON password generation for security purposes.

@@ -4,12 +4,13 @@ releaseOS=$(gawk -F= '/^NAME/{print $2}' /etc/os-release)
 releaseArch=$(uname -m)
 serverRunning=$(ps cax | grep samp03svr)
 osRoot="apt"
+randomRCON=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 if [ -d ~/.samp ]; then
     if [[ $serverRunning == *"samp03svr"* ]]; then
       while true; do
         read -p "   SA-MP Server is already running. Do you want to stop it? [y/n]" yn
         case $yn in
-          [Yy]* ) pkill samp03svr; echo -e "\033[32m   Server has been stopped.\033[37m"; break;;
+          [Yy]* ) pkill samp03svr; pkill samp03svr; echo -e "\033[32m   Server has been stopped.\033[37m"; break;;
           [Nn]* ) exit;;
           * ) echo "Please answer yes or no."
         esac
@@ -90,6 +91,9 @@ rm samp03zsvr_R1.tar.gz
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
 echo -e " * Starting server for the first time.. "
+echo -e "   \033[31mNOTE: YOUR RCON PASSWORD IS: $randomRCON"
+echo -e "\033[37m"
+sed -i 's/changeme/$randomRCON/g' server.cfg
 ~/.samp/samp03/samp03svr >/dev/null 2>&1 &
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
