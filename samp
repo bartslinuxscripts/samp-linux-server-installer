@@ -93,7 +93,7 @@ echo -e "\033[37m"
 echo -e " * Starting server for the first time.. "
 echo -e "   \033[31mNOTE: YOUR RCON PASSWORD IS: $randomRCON"
 echo -e "\033[37m"
-sed -i 's/changeme/$randomRCON/g' server.cfg
+sed -i 's/changeme/$randomRCON/g' ~/.samp/samp03/server.cfg
 ~/.samp/samp03/samp03svr >/dev/null 2>&1 &
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
