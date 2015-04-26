@@ -1,6 +1,7 @@
 #!/bin/bash
 clear
 releaseOS=$(gawk -F= '/^NAME/{print $2}' /etc/os-release)
+releaseArch=$(uname -m)
 serverRunning=$(ps cax | grep samp03svr)
 osRoot="apt"
 if [ -d ~/.samp ]; then
@@ -15,7 +16,7 @@ if [ -d ~/.samp ]; then
       done
     else
       echo -e "\033[32m   Server has been started.\033[37m"
-      ~/.samp/samp03/samp03svr
+      ~/.samp/samp03/samp03svr >/dev/null 2>&1 &
     fi
   exit
 fi
@@ -48,7 +49,24 @@ else
   echo -e "\033[31m   Unsupported :("
   exit
 fi
-
+echo -e " * Checking if 32bit or 64bit.. "
+if [ $releaseArch == "x86_64" ]; then
+  echo -e "\033[32m   64bit"
+  echo -e "\033[37m"
+elif [ $releaseArch == "i686" ]; then
+  echo -e "\033[32m   32bit"
+  echo -e "\033[37m"
+fi
+if [ $releaseArch == "x86_64" ]; then
+  echo -e " * Installing 32-bit support libraries.. "
+  if [ $osRoot == "yum" ]; then
+    yum -y install glibc.i686 libstdc++.i686 >/dev/null
+  elif [ $osRoot == "apt"]; then
+    apt-get -y install libc6-i386 lib32stdc++6 >/dev/null
+  fi
+  echo -e "\033[32m   Done!"
+  echo -e "\033[37m"
+fi
 echo -e " * Checking if wget is installed.. "
 if [ $osRoot == "yum" ]; then
   yum -y install wget > /dev/null
@@ -72,6 +90,6 @@ rm samp03zsvr_R1.tar.gz
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
 echo -e " * Starting server for the first time.. "
-~/.samp/samp03/samp03svr
+~/.samp/samp03/samp03svr >/dev/null 2>&1 &
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
