@@ -9,3 +9,6 @@ v0.1.2
 
 v0.1.3
  - Bug fixes.
+
+v0.1.4
+ - Bug fixes and improvements.

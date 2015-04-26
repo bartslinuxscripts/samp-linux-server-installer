@@ -17,7 +17,8 @@ if [ -d ~/.samp ]; then
       done
     else
       echo -e "\033[32m   Server has been started.\033[37m"
-      ~/.samp/samp03/samp03svr >/dev/null 2>&1 &
+      cd ~/.samp/samp03
+      ./samp03svr >/dev/null 2>&1 &
     fi
   exit
 fi
@@ -93,7 +94,8 @@ echo -e "\033[37m"
 echo -e " * Starting server for the first time.. "
 echo -e "   \033[31mNOTE: YOUR RCON PASSWORD IS: $randomRCON"
 echo -e "\033[37m"
-sed -i 's/changeme/$randomRCON/g' ~/.samp/samp03/server.cfg
-~/.samp/samp03/samp03svr >/dev/null 2>&1 &
+sed -i "s/changeme/$randomRCON/g" ~/.samp/samp03/server.cfg
+cd ~/.samp/samp03
+./samp03svr >/dev/null 2>&1 &
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
