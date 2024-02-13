@@ -83,12 +83,12 @@ echo -e "\033[32m   Done!"
 echo -e "\033[37m"
 echo -e " * Downloading SA-MP Server.. "
 cd ~/.samp
-wget -q 'http://files.sa-mp.com/samp03zsvr_R1.tar.gz'
+wget -q 'https://carolinemt2.eu/samp03xsvr_R1-2.tar.gz'
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
 echo -e " * Unpacking server files.. "
-tar -zxf samp03zsvr_R1.tar.gz
-rm samp03zsvr_R1.tar.gz
+tar -zxf samp03xsvr_R1-2.tar.gz
+rm samp03xsvr_R1-2.tar.gz
 echo -e "\033[32m   Done!"
 echo -e "\033[37m"
 echo -e " * Starting server for the first time.. "
